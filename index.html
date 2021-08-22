@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Cinema Homepage</title>
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+  <body>
+    <div class="bar">
+      <input class="searchbar" type="text" title="Search" id="search" placeholder="Rechercher sur le web">
+      <a href="#"> <img class="voice" src="/assets/mic.png" title="Search by Voice" alt="microphone"></a>
+    </div>
+
+    <div class="flex margin-top">
+      <a class="card card-hard" href="https://netflix.com" tooltip="Netflix">
+        <img class="image" src="/assets/netflix.png"  alt="netflix"/>
+      </a>
+      <a class="card card-hard" href="https://animedigitalnetwork.fr/" tooltip="Anime Digital Network">
+        <img class="image" src="/assets/adn.png"  alt="adn"/>
+      </a>
+      <a class="card card-hard" href="https://youtube.com" tooltip="Youtube">
+        <img class="image" src="/assets/youtube.png"  alt="youtube"/>
+      </a>
+      <a class="card card-hard" href="https://www.disneyplus.com/fr-fr/" tooltip="Disney+">
+        <img class="image" src="/assets/disney.svg"  alt="disney"/>
+      </a>
+      <a class="card card-hard" href="steam://openurl/https://store.steampowered.com/" tooltip="Steam">
+        <img class="image" src="/assets/steam.png"  alt="steam"/>
+      </a>
+    </div>
+
+    <a href="https://www.pexels.com" class="backlink-pexels">Photos provided by Pexels</a>
+
+    <script type="text/javascript">
+      var input = document.querySelector("#search");
+      input.addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          window.location = "https://www.google.fr/search?q=" + input.value;
+        }
+      });
+    </script>
+
+    <script>
+      window.addEventListener('load', function() {
+        const xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", '/random');
+        xmlHttp.send(null);
+
+
+        xmlHttp.onreadystatechange = function() {
+          const imageUrl = xmlHttp.response;
+          const body = document.querySelector("body");
+          body.style['background-image'] = 'url("' + imageUrl + '")';
+        }
+      });
+    </script>
+  </body>
+</html>
