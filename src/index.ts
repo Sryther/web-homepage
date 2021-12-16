@@ -54,16 +54,21 @@ app.get('/random', async (req, res) => {
         }
     }
 
-    const response = await pexelsApp.photos.search(pexelsQuery);
+    try {
+        const response = await pexelsApp.photos.search(pexelsQuery);
 
-    let photo: null;
-    if (response["photos"][0].src.large2x) {
-        photo = response["photos"][0].src.large2x;
-    } else {
-        photo = response["photos"][0].src.large;
+        let photo: null;
+        if (response["photos"][0].src.large2x) {
+            photo = response["photos"][0].src.large2x;
+        } else {
+            photo = response["photos"][0].src.large;
+        }
+
+        res.send(photo);
+    } catch (error) {
+        console.error(error);
+        res.send('/assets/default-background.png');
     }
-
-    res.send(photo);
 });
 
 app.use('/assets', express.static('assets'));

@@ -49,15 +49,21 @@ app.get('/random', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             pexelsQuery.page = Math.floor(100 * Math.random());
         }
     }
-    const response = yield pexelsApp.photos.search(pexelsQuery);
-    let photo;
-    if (response["photos"][0].src.large2x) {
-        photo = response["photos"][0].src.large2x;
+    try {
+        const response = yield pexelsApp.photos.search(pexelsQuery);
+        let photo;
+        if (response["photos"][0].src.large2x) {
+            photo = response["photos"][0].src.large2x;
+        }
+        else {
+            photo = response["photos"][0].src.large;
+        }
+        res.send(photo);
     }
-    else {
-        photo = response["photos"][0].src.large;
+    catch (error) {
+        console.error(error);
+        res.send('/assets/default-background.png');
     }
-    res.send(photo);
 }));
 app.use('/assets', express.static('assets'));
 app.listen(port, () => {
