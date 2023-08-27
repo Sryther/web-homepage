@@ -7,6 +7,7 @@ import cors from 'cors';
 import pexels from 'pexels';
 import { AsyncWeather } from '@cicciosgamino/openweather-apis';
 import goip from "geoip-lite";
+import requestIP from "request-ip";
 
 const __dirname = path.resolve();
 
@@ -23,8 +24,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/random', async (req, res) => {
-
-    let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    let ip = requestIP.getClientIp(req);
 
     console.log(ip);
     if (req.ip !== "127.0.0.1" && req.ip === "::1") {
