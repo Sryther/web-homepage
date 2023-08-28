@@ -15,6 +15,7 @@ import cors from 'cors';
 import pexels from 'pexels';
 import { AsyncWeather } from '@cicciosgamino/openweather-apis';
 import goip from "geoip-lite";
+import requestIP from "request-ip";
 const __dirname = path.resolve();
 const app = express();
 const pexelsApp = pexels.createClient(process.env.PEXELS_API_KEY);
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/assets/index.html'));
 });
 app.get('/random', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    let ip = requestIP.getClientIp(req);
     console.log(ip);
     if (req.ip !== "127.0.0.1" && req.ip === "::1") {
         ip = "88.171.49.146"; // For test purposes
