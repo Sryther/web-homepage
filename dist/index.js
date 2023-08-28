@@ -14,8 +14,6 @@ import path from 'path';
 import cors from 'cors';
 import pexels from 'pexels';
 import { AsyncWeather } from '@cicciosgamino/openweather-apis';
-import goip from "geoip-lite";
-import requestIP from "request-ip";
 const __dirname = path.resolve();
 const app = express();
 const pexelsApp = pexels.createClient(process.env.PEXELS_API_KEY);
@@ -25,12 +23,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/assets/index.html'));
 });
 app.get('/random', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let ip = requestIP.getClientIp(req);
-    console.log(ip);
-    if (req.ip !== "127.0.0.1" && req.ip === "::1") {
-        ip = "88.171.49.146"; // For test purposes
-    }
-    const geoloc = goip.lookup(ip);
     const pexelsQuery = {
         page: Math.floor(1000 * Math.random()),
         per_page: 1,
@@ -38,17 +30,15 @@ app.get('/random', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         locale: 'en-US',
         query: 'nature'
     };
-    if (geoloc !== null && geoloc !== undefined && geoloc.ll !== null && geoloc.ll !== undefined) {
-        const weather = yield new AsyncWeather();
-        weather.setApiKey(process.env.OPENWEATHER_API_KEY);
-        weather.setUnits('metric');
-        weather.setCoordinates(geoloc.ll[1], geoloc.ll[0]);
-        weather.setLang(geoloc.country.toLowerCase());
-        const resultWeather = yield weather.getAllWeather();
-        if (resultWeather.weather[0].icon.indexOf("n") !== -1) {
-            pexelsQuery.query = "galaxy";
-            pexelsQuery.page = Math.floor(100 * Math.random());
-        }
+    const weather = yield new AsyncWeather();
+    weather.setApiKey(process.env.OPENWEATHER_API_KEY);
+    weather.setUnits('metric');
+    weather.setCoordinates(43.7610502, 1.040338);
+    weather.setLang('fr');
+    const resultWeather = yield weather.getAllWeather();
+    if (resultWeather.weather[0].icon.indexOf("n") !== -1) {
+        pexelsQuery.query = "galaxy";
+        pexelsQuery.page = Math.floor(100 * Math.random());
     }
     try {
         const response = yield pexelsApp.photos.search(pexelsQuery);
