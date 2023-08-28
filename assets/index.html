@@ -40,6 +40,9 @@
 
       <script>
         window.addEventListener('load', function() {
+          const input = $('#search');
+          input.focus();
+
           const xmlHttp = new XMLHttpRequest();
           xmlHttp.open("GET", '/random');
           xmlHttp.send(null);

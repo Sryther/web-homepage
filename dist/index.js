@@ -37,7 +37,7 @@ app.get('/random', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     weather.setLang('fr');
     const resultWeather = yield weather.getAllWeather();
     if (resultWeather.weather[0].icon.indexOf("n") !== -1) {
-        pexelsQuery.query = "galaxy";
+        pexelsQuery.query = "universe";
         pexelsQuery.page = Math.floor(100 * Math.random());
     }
     try {

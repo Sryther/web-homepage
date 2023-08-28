@@ -38,7 +38,7 @@ app.get('/random', async (req, res) => {
     const resultWeather = await weather.getAllWeather();
 
     if (resultWeather.weather[0].icon.indexOf("n") !== -1) {
-        pexelsQuery.query = "galaxy"
+        pexelsQuery.query = "universe"
         pexelsQuery.page = Math.floor(100 * Math.random())
     }
 
