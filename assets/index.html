@@ -54,7 +54,7 @@
           xmlHttp.send(null);
 
           xmlHttp.onreadystatechange = function() {
-            const imageUrl = xmlHttp.response;
+            const imageUrl = xmlHttp.response.replaceAll("&[hw]+=[0-9]+", "");
             const body = document.querySelector("body");
             body.style['background-image'] = 'url("' + imageUrl + '")';
           }
