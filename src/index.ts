@@ -27,7 +27,7 @@ app.get('/random', async (req, res) => {
         per_page: 1,
         orientation: 'landscape',
         locale: 'en-US',
-        query: 'nature'
+        query: 'Beautiful Landscapes'
     };
 
     const weather = await new AsyncWeather();
