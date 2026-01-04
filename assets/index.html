@@ -35,7 +35,7 @@
       <a href="https://www.pexels.com" class="backlink-pexels">Photos provided by Pexels</a>
 
       <script type="text/javascript">
-        var input = document.querySelector("#search");
+        const input = document.querySelector("#search");
         input.addEventListener("keyup", function(event) {
           // Number 13 is the "Enter" key on the keyboard
           if (event.keyCode === 13) {
@@ -45,9 +45,7 @@
             window.location = "https://www.google.fr/search?q=" + input.value;
           }
         });
-      </script>
 
-      <script>
         window.addEventListener('load', function() {
           const input = document.querySelector('#search');
           input.focus();
